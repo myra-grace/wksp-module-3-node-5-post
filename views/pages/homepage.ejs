@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+<div>
+    <form method="POST" action="/data">
+        <!-- <label for="todo">To Do</label> -->
+        <input type="text" name="input" placeholder="to-do item">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<div>
+    <ul class="to-do-list">
+        <% theTodoList.forEach(input => { %>
+            <li><%= input %></li>
+        <%}); %> 
+    </ul>
+</div>
+<%- include('../partials/footer') %>
