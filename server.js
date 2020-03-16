@@ -29,48 +29,46 @@ express()
     })
     .post('/data', (req, res) => {
         const { input } = req.body;
-        console.log(req.body);
         theTodoList.push(input);
         res.redirect('/todos');
-        console.log(theTodoList);
     })
 //exercise 2
+    .get('/order-confirmation', (req, res) => {
+        res.render('pages/order-confirmation');
+    })
+
     .post('/order', (req, res) => {
-        console.log('req.body: ', req.body);
         let data = req.body;
 
         let customer = {first: data.givenName, sur: data.surname}
         let item = data.order;
         let shirtSize = data.size;
 
-        console.log(data.order)
-        res.send({status: 'success')
-
-        // customers.forEach(person => {
-        //     if (person.givenName == customer.first && person.surname == customer.sur) {
-        //         res.send({status: 'error', error: '550'});
-        //     }
-        // });
+        customers.forEach(person => {
+            if (person.givenName == customer.first && person.surname == customer.sur) {
+                res.send({status: 'error', error: '550'});
+            }
+        });
         
-        // if (stock[item] == 0 || stock.shirt[shirtSize] == 0) {
-        //     res.send({status: 'error', error: '450'});
-        // }
+        if (stock[item] == 0 || stock.shirt[shirtSize] == 0) {
+            res.send({status: 'error', error: '450'});
+        }
         
-        // else if (data.country !== 'Canada') {
-        //     res.send({status: 'error', error: '650'});
-        // }
+        else if (data.country !== 'Canada') {
+            res.send({status: 'error', error: '650'});
+        }
 
-        // else if (data.order == undefined) {
-        //     res.send({status: 'error', error: '000'});
-        // }
+        else if (item == 'undefined') {
+            res.send({status: 'error', error: '000'});
+        }
 
-        // else {
-        //     res.send({status: 'success', success: 'Order Recieved'})
-        // }
-    })
-
-    .get('', (req, res) => {
-        res.render('pages/order-confirmation');
+        else if (item == 'shirt' && shirtSize == 'undefined') {
+            res.send({status: 'error', error: '000'});
+        }
+//      --------- CAN'T GET THIS TO WORK --------
+        else {
+            res.redirect('/order-confirmation');
+        }
     })
 
     .get('*', (req, res) => res.send('Dang. 404.'))
