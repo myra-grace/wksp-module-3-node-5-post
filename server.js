@@ -33,7 +33,7 @@ express()
         res.redirect('/todos');
     })
 //exercise 2
-    .get('/order-confirmation', (req, res) => {
+    .get('/order-confirmed', (req, res) => {
         res.render('pages/order-confirmation');
     })
 
@@ -65,9 +65,8 @@ express()
         else if (item == 'shirt' && shirtSize == 'undefined') {
             res.send({status: 'error', error: '000'});
         }
-//      --------- CAN'T GET THIS TO WORK --------
         else {
-            res.redirect('/order-confirmation');
+            res.send({status: "success"});
         }
     })
 
